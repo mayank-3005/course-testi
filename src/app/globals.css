@@ -25,3 +25,23 @@ body {
     text-wrap: balance;
   }
 }
+
+
+.Realstory_downcontent__jD2kh {
+  display: grid;
+  grid-template-columns: 49% 2% 49%;
+  grid-gap: 0;
+  gap: 0;
+  border-radius: 8.098px;
+  background: #f6f6f6;
+  padding: 14px;
+  margin-right: 0;
+  text-align: left;
+}
+
+.Realstory_contenthead__qsyYx {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  align-items: center;
+}

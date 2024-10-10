@@ -1,101 +1,143 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
 
-export default function Home() {
+const testimonials = [
+  {
+    id: "Testimonial 1",
+    smallImage:
+      "https://www.learnbay.co/_next/image?url=https%3A%2F%2Fd32and0ii3b8oy.cloudfront.net%2Fweb%2Fs3_main%2FlearnbayMain%2Firsar_pro.webp&w=384&q=75",
+    banner: "https://d32and0ii3b8oy.cloudfront.net/web/s3_main/israr_big_card.webp",
+  },
+  {
+    id: "Testimonial 3",
+    smallImage:
+      "https://www.learnbay.co/_next/image?url=https%3A%2F%2Fd32and0ii3b8oy.cloudfront.net%2Fweb%2Fs3_main%2FlearnbayMain%2Fshubam_pro.webp&w=640&q=75",
+    banner: "https://d32and0ii3b8oy.cloudfront.net/web/s3_main/shubam_big_card.webp",
+  },
+  {
+    id: "Testimonial 4",
+    smallImage:
+      "https://www.learnbay.co/_next/image?url=https%3A%2F%2Fd32and0ii3b8oy.cloudfront.net%2Fweb%2Fs3_main%2FlearnbayMain%2Fjaya_pro.webp&w=640&q=75",
+    banner: "https://d32and0ii3b8oy.cloudfront.net/web/s3_main/jaya_big_card.webp",
+  },
+  {
+    id: "Testimonial 5",
+    smallImage:
+      "https://www.learnbay.co/_next/image?url=https%3A%2F%2Fd32and0ii3b8oy.cloudfront.net%2Fweb%2Fs3_main%2FlearnbayMain%2Farvind_pro.webp&w=640&q=75",
+    banner: "https://d32and0ii3b8oy.cloudfront.net/web/s3_main/arvind_big_card.webp",
+  },
+  {
+    id: "Testimonial 6",
+    smallImage:
+      "https://www.learnbay.co/_next/image?url=https%3A%2F%2Fd32and0ii3b8oy.cloudfront.net%2Fweb%2Fs3_main%2FlearnbayMain%2Fpreksha_pro.webp&w=640&q=75",
+    banner: "https://d32and0ii3b8oy.cloudfront.net/web/s3_main/preksha_big_card.webp",
+  },
+  // Add more testimonials as needed
+];
+
+const Testimonial = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [slideDirection, setSlideDirection] = useState("");
+
+  const handleNext = () => {
+    setSlideDirection("right");
+    setTimeout(() => {
+      setCurrentIndex((currentIndex + 1) % testimonials.length);
+      setSlideDirection("");
+    }, 300);
+  };
+
+  const handlePrev = () => {
+    setSlideDirection("left");
+    setTimeout(() => {
+      setCurrentIndex((currentIndex - 1 + testimonials.length) % testimonials.length);
+      setSlideDirection("");
+    }, 300);
+  };
+
+  const handleThumbnailClick = (index) => {
+    setSlideDirection(index > currentIndex ? "right" : "left");
+    setTimeout(() => setCurrentIndex(index), 300);
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <section className="py-10 bg-white flex justify-center items-center">
+      <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-10">
+        {/* Left Banner with sliding effect */}
+        <div className="w-full md:w-1/2 relative p-6  rounded-lg overflow-hidden">
+          <div
+            className={`w-full transition-transform duration-500 ease-in-out transform ${
+              slideDirection === "right"
+                ? "-translate-x-full"
+                : slideDirection === "left"
+                ? "translate-x-full"
+                : "translate-x-0"
+            }`}
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+            <img
+              src={testimonials[currentIndex].banner}
+              alt={`Banner ${testimonials[currentIndex].id}`}
+              className="w-full h-auto rounded-md"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        {/* Right Section with Heading and Thumbnails */}
+        <div className="w-full md:w-1/2 relative flex flex-col  justify-center">
+          <h2 className="text-3xl font-bold mb-2 text-gray-800 font-weight: 900; w-full md:w-3/4">Real Stories, Real Success</h2>
+          <p className="text-gray-600 mb-4">Discover what our learners say about us.</p>
+
+          <button
+            onClick={handlePrev}
+            className="absolute left-2 text-gray-400 hover:text-black"
+          >
+            &#8592;
+          </button>
+
+          <div className="flex gap-2 mb-4">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className={`w-20 h-20 rounded-md overflow-hidden border-2 ${
+                  index === currentIndex
+                    ? "border-orange-500"
+                    : "border-gray-300 opacity-50"
+                }`}
+              >
+                <img
+                  src={testimonial.smallImage}
+                  alt={`Thumbnail ${testimonial.id}`}
+                  className={`object-cover w-full h-full ${
+                    index === currentIndex ? "" : "grayscale"
+                  }`}
+                  onClick={() => handleThumbnailClick(index)}
+                />
+              </div>
+            ))}
+          </div>
+
+          <button
+            onClick={handleNext}
+            className="absolute right-2 text-gray-400 hover:text-black"
+          >
+            &#8594;
+          </button>
+
+          {/* Additional Info Section */}
+          <div className="flex justify-between w-full mt-6 px-4 Realstory_downcontent__jD2kh">
+            <div className="text-center Realstory_contenthead__qsyYx">
+              <p className="text-2xl font-bold text-orange-500">9k+</p>
+              <p className="text-sm text-gray-600">Successful Career Transitions</p>
+            </div>
+            <div className="text-center Realstory_contenthead__qsyYx">
+              <p className="text-2xl font-bold text-orange-500">175%</p>
+              <p className="text-sm text-gray-600">Average Salary Hike</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
-}
+};
+
+export default Testimonial;
