@@ -45,3 +45,7 @@ body {
   margin: 0;
   align-items: center;
 }
+
+.card-bg{
+  background: linear-gradient(94deg, #0d0d0d -.37%, #341f00);
+}
